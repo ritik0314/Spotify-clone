@@ -1,0 +1,279 @@
+/* Color Palette */
+:root {
+  --bg-main: #181818;
+  --bg-secondary: #202020;
+  --primary-color: #1db954;
+  --text-light: #ffffff;
+  --text-muted: #b3b3b3;
+  --card-bg: #282828;
+  --hover-bg: #333333;
+  --input-bg: #3e3e3e;
+}
+
+/* General Reset and Utility */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: var(--bg-main);
+  color: var(--text-light);
+  height: 100vh;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Header */
+.header {
+  background-color: var(--bg-secondary);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  border-radius: 5px;
+}
+
+.home-search, .bell-down-group, .arrow-install {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+}
+
+.search-container {
+  display: flex;
+  align-items: center;
+  position: relative;
+  width: 100%;
+  gap: 20px;
+}
+
+.search-container input {
+  width: 100%;
+  padding: 8px 12px 8px 35px;
+  border: none;
+  border-radius: 5px;
+  background-color: var(--input-bg);
+  color: var(--text-light);
+  outline: none;
+  cursor: pointer;
+}
+
+.search-icon {
+  position: absolute;
+  left: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--text-muted);
+  pointer-events: none;
+}
+
+/* Page Layout */
+.page-container {
+  display: flex;
+  flex: 1;
+  overflow: hidden;
+  margin: 4px;
+}
+
+/* Left Panel */
+.left-panel {
+  width: 25%;
+  background-color: var(--bg-secondary);
+  padding: 16px;
+  border-radius: 5px;
+  overflow-y: auto;
+  position: sticky;
+  top: 0;
+  height: calc(100vh - 130px);
+}
+
+.left-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.left-header h4 {
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.Create-expand, .recent {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+}
+
+.create, .filter-btn {
+  background-color: var(--input-bg);
+  color: var(--text-light);
+  border: none;
+  border-radius: 20px;
+  padding: 8px 14px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.create:hover, .filter-btn:hover {
+  background-color: var(--hover-bg);
+}
+
+.library-options {
+  margin-bottom: 10px;
+}
+
+.search-recents {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 0;
+}
+
+.search-recents h4 {
+  font-size: 15px;
+}
+
+/* Artist Cards */
+.artist-card {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.3s;
+}
+
+.artist-card:hover {
+  background-color: var(--primary-color);
+  transform: scale(1.02);
+  color: var(--text-light);
+}
+
+.artist-card img {
+  width: 50px;
+  height: 50px;
+  object-fit: cover;
+  border-radius: 50%;
+}
+
+.artist-info h3 {
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.artist-info p {
+  font-size: 14px;
+  color: var(--text-muted);
+  margin-top: 2px;
+}
+
+/* Right Panel */
+.right-panel {
+  width: 75%;
+  background-color: var(--card-bg);
+  padding: 20px;
+  border-radius: 5px;
+  overflow-y: auto;
+  height: calc(100vh - 130px);
+}
+
+.right-header button {
+  background-color: var(--input-bg);
+  color: var(--text-light);
+  border: none;
+  border-radius: 20px;
+  padding: 8px 14px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.right-header button:hover {
+  background-color: var(--hover-bg);
+}
+
+.username p {
+  color: var(--text-muted);
+  margin: 0;
+}
+
+.username h3 {
+  font-size: 25px;
+  font-weight: 1000;
+  margin: 0;
+}
+
+.artistalbums {
+  width: 177px;
+  background-color: var(--bg-secondary);
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+.artistalbums img {
+  width: 95%;
+  height: 177px;
+  border-radius: 10px 10px 0 0;
+  display: block;
+}
+
+.caption {
+  max-height: 30px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  padding: 10px;
+  color: var(--text-muted);
+}
+
+.showall {
+  display: flex;
+  overflow-x: auto;
+  gap: 20px;
+}
+
+.image-wrapper {
+  position: relative;
+  border: 4px solid var(--bg-main);
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.image-wrapper img {
+  width: 100%;
+  display: block;
+}
+
+/* Bottom Player */
+.bottom {
+  height: 130px;
+  background-color: var(--bg-secondary);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#myProgressBar {
+  width: 45vw;
+  cursor: pointer;
+}
+
+.icons {
+  display: flex;
+  align-items: center;
+  margin: 10px;
+  margin-left: 290px;
+}
+
+.icons i {
+  margin: 0 10px;
+  cursor: pointer;
+}
