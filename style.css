@@ -58,6 +58,32 @@ body {
   gap: 10px;
 }
 
+.profile-button {
+  border: none;
+  background: transparent;
+  color: var(--text-main);
+  cursor: pointer;
+  padding: 0;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.profile-button:hover {
+  background: #1f1f1f;
+}
+
+.header-profile-image {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 1px solid #3a3a3a;
+}
+
 .search-container {
   position: relative;
   width: min(480px, 48vw);

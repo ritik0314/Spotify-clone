@@ -21,7 +21,10 @@
             <div class="bell-down-group">
                 <i class="fa-2x fa-solid fa-bell"></i>
                 <i class="fa-2x fa-solid fa-user-group"></i>
-                <i class="fa-2x fa-solid fa-circle-user"></i>
+                <button id="profileButton" class="profile-button" type="button" aria-label="Open profile settings">
+                    <img id="headerProfileImage" class="header-profile-image" src="" alt="Profile image" style="display: none;">
+                    <i id="headerProfileIcon" class="fa-2x fa-solid fa-circle-user"></i>
+                </button>
             </div>
         </div>
 
@@ -107,7 +110,7 @@
                 <div class="for-you">
                     <div class="username">
                         <p>Made For</p>
-                        <h3>Ritik Singh Baghel</h3>
+                        <h3 id="homeUserName"></h3>
                     </div>
 
                     <div class="row-section uniform-song-row">

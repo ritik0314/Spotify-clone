@@ -2,6 +2,43 @@ const homeRightPanel = document.getElementById('homeRightPanel');
 const artistRightPanel = document.getElementById('artistRightPanel');
 const artistFrame = document.getElementById('artistFrame');
 const backToHomeBtn = document.getElementById('backToHomeBtn');
+const profileButton = document.getElementById('profileButton');
+const headerProfileImage = document.getElementById('headerProfileImage');
+const headerProfileIcon = document.getElementById('headerProfileIcon');
+const homeUserName = document.getElementById('homeUserName');
+const PROFILE_STORAGE_KEY = 'spotifyCloneUserProfile';
+
+function getStoredProfile() {
+    try {
+        const rawValue = window.localStorage.getItem(PROFILE_STORAGE_KEY);
+        return rawValue ? JSON.parse(rawValue) : {};
+    } catch (error) {
+        return {};
+    }
+}
+
+function applyProfileToHome(profile) {
+    const profileName = profile?.username && String(profile.username).trim()
+        ? String(profile.username).trim()
+        : '';
+
+    if (homeUserName) {
+        homeUserName.innerText = profileName;
+    }
+
+    const hasImage = profile?.profileImage && String(profile.profileImage).trim();
+    if (hasImage && headerProfileImage && headerProfileIcon) {
+        headerProfileImage.src = profile.profileImage;
+        headerProfileImage.style.display = 'block';
+        headerProfileIcon.style.display = 'none';
+    } else if (headerProfileImage && headerProfileIcon) {
+        headerProfileImage.src = '';
+        headerProfileImage.style.display = 'none';
+        headerProfileIcon.style.display = 'block';
+    }
+}
+
+applyProfileToHome(getStoredProfile());
 
 function resolveAppUrl(path) {
     const currentDirectory = window.location.pathname.endsWith('/')
@@ -340,5 +377,23 @@ if (searchIcon && searchInput) {
         applySearchFilter(searchInput.value);
     });
 }
+
+if (profileButton) {
+    profileButton.addEventListener('click', () => {
+        openInRightPanel('profile.html');
+    });
+}
+
+window.addEventListener('storage', (event) => {
+    if (event.key === PROFILE_STORAGE_KEY) {
+        applyProfileToHome(getStoredProfile());
+    }
+});
+
+window.addEventListener('message', (event) => {
+    if (event.data?.type === 'profile-updated') {
+        applyProfileToHome(getStoredProfile());
+    }
+});
 
 

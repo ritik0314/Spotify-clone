@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Edit Profile</title>
+  <style>
+    :root {
+      --bg-main: #0e0e0e;
+      --bg-card: #191919;
+      --bg-input: #262626;
+      --text-main: #ffffff;
+      --text-muted: #b3b3b3;
+      --accent: #1db954;
+      --border: #2f2f2f;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: radial-gradient(circle at top, #1f1f1f 0%, #121212 40%, var(--bg-main) 100%);
+      color: var(--text-main);
+      min-height: 100vh;
+      padding: 18px;
+    }
+
+    .profile-wrap {
+      max-width: 760px;
+      margin: 0 auto;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 18px;
+      box-shadow: 0 12px 28px rgba(0, 0, 0, 0.32);
+    }
+
+    h1 {
+      margin: 0 0 6px;
+      font-size: 28px;
+      line-height: 1.2;
+    }
+
+    .hint {
+      margin: 0 0 18px;
+      color: var(--text-muted);
+      font-size: 13px;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    .field {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .field.full {
+      grid-column: 1 / -1;
+    }
+
+    label {
+      font-size: 13px;
+      color: var(--text-muted);
+    }
+
+    input,
+    select {
+      width: 100%;
+      border: 1px solid #3a3a3a;
+      background: var(--bg-input);
+      color: var(--text-main);
+      border-radius: 10px;
+      padding: 10px 12px;
+      outline: none;
+      font-size: 14px;
+    }
+
+    input:focus,
+    select:focus {
+      border-color: var(--accent);
+    }
+
+    .avatar-row {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-top: 4px;
+    }
+
+    .avatar-preview {
+      width: 72px;
+      height: 72px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 1px solid #3a3a3a;
+      background: #121212;
+    }
+
+    .actions {
+      margin-top: 16px;
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      border: none;
+      border-radius: 999px;
+      padding: 10px 15px;
+      font-size: 14px;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    .btn.save {
+      background: var(--accent);
+      color: #000;
+    }
+
+    .btn.reset {
+      background: #2a2a2a;
+      color: var(--text-main);
+    }
+
+    .status {
+      margin-top: 10px;
+      font-size: 13px;
+      color: var(--text-muted);
+      min-height: 18px;
+    }
+
+    @media (max-width: 640px) {
+      body { padding: 12px; }
+      .profile-wrap { padding: 14px; }
+      .grid { grid-template-columns: 1fr; }
+      h1 { font-size: 24px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="profile-wrap">
+    <h1>Edit Profile</h1>
+    <p class="hint">Update your profile details for the home page recommendations.</p>
+
+    <form id="profileForm" novalidate>
+      <div class="grid">
+        <div class="field full">
+          <label for="usernameInput">User Name</label>
+          <input id="usernameInput" name="username" type="text" maxlength="40" placeholder="Enter your name" required>
+        </div>
+
+        <div class="field">
+          <label for="birthdayInput">Birthday</label>
+          <input id="birthdayInput" name="birthday" type="date">
+        </div>
+
+        <div class="field">
+          <label for="genderSelect">Gender</label>
+          <select id="genderSelect" name="gender">
+            <option value="">Select gender</option>
+            <option value="Male">Male</option>
+            <option value="Female">Female</option>
+            <option value="Non-binary">Non-binary</option>
+            <option value="Prefer not to say">Prefer not to say</option>
+          </select>
+        </div>
+
+        <div class="field">
+          <label for="languageSelect">Language</label>
+          <select id="languageSelect" name="language">
+            <option value="">Select language</option>
+            <option value="English">English</option>
+            <option value="Hindi">Hindi</option>
+            <option value="Punjabi">Punjabi</option>
+            <option value="Urdu">Urdu</option>
+            <option value="Bengali">Bengali</option>
+            <option value="Tamil">Tamil</option>
+            <option value="Other">Other</option>
+          </select>
+        </div>
+
+        <div class="field full">
+          <label for="profileImageInput">Profile Image</label>
+          <div class="avatar-row">
+            <img id="avatarPreview" class="avatar-preview" src="" alt="Profile preview">
+            <input id="profileImageInput" name="profileImage" type="file" accept="image/*">
+          </div>
+        </div>
+      </div>
+
+      <div class="actions">
+        <button class="btn save" type="submit">Save Profile</button>
+        <button class="btn reset" id="resetBtn" type="button">Reset to Default</button>
+      </div>
+      <div id="statusText" class="status"></div>
+    </form>
+  </div>
+
+  <script>
+    const STORAGE_KEY = 'spotifyCloneUserProfile';
+
+    const profileForm = document.getElementById('profileForm');
+    const usernameInput = document.getElementById('usernameInput');
+    const birthdayInput = document.getElementById('birthdayInput');
+    const genderSelect = document.getElementById('genderSelect');
+    const languageSelect = document.getElementById('languageSelect');
+    const profileImageInput = document.getElementById('profileImageInput');
+    const avatarPreview = document.getElementById('avatarPreview');
+    const statusText = document.getElementById('statusText');
+    const resetBtn = document.getElementById('resetBtn');
+
+    let currentImageData = '';
+
+    function readProfile() {
+      try {
+        const raw = window.localStorage.getItem(STORAGE_KEY);
+        return raw ? JSON.parse(raw) : {};
+      } catch (error) {
+        return {};
+      }
+    }
+
+    function writeProfile(profile) {
+      window.localStorage.setItem(STORAGE_KEY, JSON.stringify(profile));
+      if (window.parent && window.parent !== window) {
+        window.parent.postMessage({ type: 'profile-updated' }, '*');
+      }
+    }
+
+    function loadForm() {
+      const profile = readProfile();
+      usernameInput.value = profile.username || '';
+      birthdayInput.value = profile.birthday || '';
+      genderSelect.value = profile.gender || '';
+      languageSelect.value = profile.language || '';
+      currentImageData = profile.profileImage || '';
+      avatarPreview.src = currentImageData || 'assets/lata mangeshkar.jpeg';
+    }
+
+    profileImageInput.addEventListener('change', (event) => {
+      const file = event.target.files && event.target.files[0];
+      if (!file) {
+        return;
+      }
+
+      const reader = new FileReader();
+      reader.onload = () => {
+        currentImageData = String(reader.result || '');
+        avatarPreview.src = currentImageData || 'assets/lata mangeshkar.jpeg';
+      };
+      reader.readAsDataURL(file);
+    });
+
+    profileForm.addEventListener('submit', (event) => {
+      event.preventDefault();
+      const username = usernameInput.value.trim();
+
+      const profile = {
+        username,
+        birthday: birthdayInput.value,
+        gender: genderSelect.value,
+        language: languageSelect.value,
+        profileImage: currentImageData
+      };
+
+      writeProfile(profile);
+      statusText.innerText = 'Profile saved successfully.';
+    });
+
+    resetBtn.addEventListener('click', () => {
+      const defaultProfile = {
+        username: '',
+        birthday: '',
+        gender: '',
+        language: '',
+        profileImage: ''
+      };
+
+      currentImageData = '';
+      window.localStorage.setItem(STORAGE_KEY, JSON.stringify(defaultProfile));
+      loadForm();
+      if (window.parent && window.parent !== window) {
+        window.parent.postMessage({ type: 'profile-updated' }, '*');
+      }
+      statusText.innerText = 'Profile reset to default values.';
+    });
+
+    loadForm();
+  </script>
+</body>
+</html>
