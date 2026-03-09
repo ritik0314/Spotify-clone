@@ -1,0 +1,409 @@
+body {
+  background: radial-gradient(circle at top, #1a1a1a 0%, #070707 34%, #000 72%);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  margin: 0;
+  padding: 0;
+  color: #fff;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+.songplaylist {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 14px;
+  gap: 12px;
+  padding: 0 14px 10px;
+}
+
+.introduction {
+  background: linear-gradient(180deg, #2a2a2a 0%, #181818 100%);
+  display: flex;
+  align-items: flex-start;
+  padding: 20px;
+  width: 100%;
+  max-width: 980px;
+  height: auto;
+  border-radius: 12px;
+  color: white;
+  border: 1px solid #2e2e2e;
+  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.35);
+}
+
+.introduction img {
+  margin: 10px 20px 0 0;
+  border-radius: 12px;
+  width: 130px;
+  height: 130px;
+  object-fit: cover;
+  border: 1px solid #333;
+}
+
+.heading {
+  margin-top: 5px;
+  flex: 1;
+}
+
+.heading h4 {
+  color: #b3b3b3;
+  font-weight: normal;
+}
+
+.songItem {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+.songname {
+  background: #181818;
+  padding: 20px;
+  width: 100%;
+  max-width: 980px;
+  max-height: 52vh;
+  border-radius: 12px;
+  color: #fff;
+  border: 1px solid #2e2e2e;
+  overflow-y: auto;
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.3);
+}
+
+.songheading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #222;
+  padding: 12px 20px;
+  border-radius: 10px;
+  color: white;
+  font-weight: bold;
+}
+
+.serialnumber,
+.Title,
+.duration {
+  color: #fff9;
+  font-size: 14px;
+}
+
+.songdisplay {
+  display: flex;
+  align-items: center;
+  background-color: #1f1f1f;
+  padding: 10px 16px;
+  border-radius: 10px;
+  margin: 12px 0;
+  color: #fff;
+  transition: all 0.3s ease;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.25);
+  cursor: pointer;
+  border: 1px solid #2b2b2b;
+}
+
+.songdisplay:hover {
+  background-color: #2a2a2a;
+  transform: scale(1.01);
+}
+
+.songdisplay.playing {
+  background: linear-gradient(90deg, rgba(29, 185, 84, 0.22), #1f1f1f);
+  border-left: 4px solid #1db954;
+}
+
+.songdisplay h3 {
+  min-width: 24px;
+}
+
+.songdisplay img {
+  width: 50px;
+  height: 50px;
+  border-radius: 10px;
+  object-fit: cover;
+  border: 1px solid #333;
+}
+
+.songtitle {
+  margin-left: 20px;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+
+.currsongname {
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.currsongartist {
+  font-size: 14px;
+  color: #b3b3b3;
+}
+
+.songduration {
+  font-size: 14px;
+  margin-left: auto;
+  margin-top: 5px;
+}
+
+.bottom {
+  position: sticky;
+  bottom: 0;
+  background-color: #111;
+  color: white;
+  width: 100%;
+  max-width: 980px;
+  height: auto;
+  min-height: 84px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border-radius: 12px;
+  z-index: 999;
+  box-shadow: 0 -4px 12px rgba(0, 0, 0, 0.3);
+  padding: 10px 12px;
+  border: 1px solid #2a2a2a;
+  margin: 10px auto 12px;
+}
+
+#myProgressBar {
+  width: 90%;
+  cursor: pointer;
+  height: 6px;
+  border-radius: 3px;
+  accent-color: #1db954;
+}
+
+.icons {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 8px;
+}
+
+.icons i {
+  margin: 0 15px;
+  cursor: pointer;
+  font-size: 26px;
+  color: #fff;
+  transition: transform 0.2s ease, color 0.2s ease;
+}
+
+.icons i:hover {
+  transform: scale(1.2);
+  color: #1db954;
+}
+
+@media (max-width: 992px) {
+  body {
+    font-size: 13px;
+  }
+
+  .songplaylist {
+    margin-top: 12px;
+    padding: 0 10px 8px;
+  }
+
+  .heading h1 {
+    font-size: 30px;
+  }
+
+  .heading h3 {
+    font-size: 15px;
+  }
+
+  .songname {
+    padding: 16px;
+    max-height: 50vh;
+  }
+
+  .songheading {
+    padding: 10px 16px;
+  }
+
+  .serialnumber,
+  .Title,
+  .duration {
+    font-size: 13px;
+  }
+
+  .songdisplay {
+    padding: 9px 12px;
+    margin: 10px 0;
+  }
+
+  .songdisplay img {
+    width: 46px;
+    height: 46px;
+  }
+
+  .currsongname {
+    font-size: 15px;
+  }
+
+  .currsongartist,
+  .songduration {
+    font-size: 13px;
+  }
+
+  .icons i {
+    font-size: 24px;
+    margin: 0 12px;
+  }
+
+  .introduction,
+  .songname {
+    width: 100%;
+  }
+
+  .bottom {
+    width: 100%;
+  }
+}
+
+@media (max-width: 640px) {
+  .introduction,
+  .songname,
+  .bottom {
+    width: 100%;
+  }
+
+  .introduction {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 14px;
+    border-radius: 10px;
+  }
+
+  .introduction img {
+    margin: 0 0 12px;
+    width: 110px;
+    height: 110px;
+  }
+
+  .heading h1 {
+    font-size: 26px;
+  }
+
+  .heading h3 {
+    font-size: 14px;
+  }
+
+  .heading h4 {
+    font-size: 12px;
+  }
+
+  .songname {
+    padding: 14px;
+    max-height: 48vh;
+    border-radius: 10px;
+  }
+
+  .songheading {
+    padding: 9px 12px;
+  }
+
+  .songdisplay {
+    padding: 8px 10px;
+    gap: 10px;
+    border-radius: 9px;
+  }
+
+  .songdisplay h3 {
+    min-width: 20px;
+    font-size: 14px;
+  }
+
+  .songdisplay img {
+    width: 42px;
+    height: 42px;
+  }
+
+  .songtitle {
+    margin-left: 0;
+  }
+
+  .currsongname {
+    font-size: 14px;
+  }
+
+  .currsongartist,
+  .songduration {
+    font-size: 12px;
+  }
+
+  .bottom {
+    min-height: 76px;
+    border-radius: 10px;
+    padding: 8px 10px;
+    margin: 8px auto 10px;
+  }
+
+  #myProgressBar {
+    width: 94%;
+  }
+
+  .icons i {
+    font-size: 22px;
+    margin: 0 10px;
+  }
+}
+
+@media (max-width: 420px) {
+  .songplaylist {
+    padding: 0 6px 8px;
+  }
+
+  .introduction {
+    padding: 12px 10px;
+  }
+
+  .introduction img {
+    width: 96px;
+    height: 96px;
+  }
+
+  .heading h1 {
+    font-size: 22px;
+  }
+
+  .songname {
+    padding: 10px;
+    max-height: 46vh;
+  }
+
+  .songheading {
+    padding: 8px 10px;
+  }
+
+  .serialnumber,
+  .Title,
+  .duration {
+    font-size: 11px;
+  }
+
+  .songdisplay {
+    padding: 7px 8px;
+    margin: 8px 0;
+  }
+
+  .currsongname {
+    font-size: 13px;
+  }
+
+  .currsongartist,
+  .songduration {
+    font-size: 11px;
+  }
+
+  .bottom {
+    min-height: 72px;
+  }
+
+  .icons i {
+    font-size: 20px;
+    margin: 0 8px;
+  }
+}
